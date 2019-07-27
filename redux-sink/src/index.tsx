@@ -1,7 +1,17 @@
-import { Router } from "react-router";
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { SinkFactory } from 'redux-sink';
 
-import { App } from "./App";
+import { App } from './App';
+import { createNavigationHistory } from './services/navigation';
 
-ReactDOM.hydrate(<App />, document.getElementById("root"));
+const store = SinkFactory.createStore();
+const history = createNavigationHistory();
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App history={history} />
+  </Provider>,
+  document.getElementById('root')
+);

@@ -1,12 +1,15 @@
-const path = require("path");
+const path = require('path');
 const configWebpack = require('./config/configWebpack');
 
 const paths = {
-  appSrc: path.join(__dirname, "./src"),
-  appBuild: path.resolve(__dirname, "./build"),
-  appPublic: path.resolve(__dirname, "./public"),
+  appSrc: path.join(__dirname, './src'),
+  appBuild: path.resolve(__dirname, './build'),
+  appPublic: path.resolve(__dirname, './public'),
   appEntry: './index.tsx',
-  alias: {}
+  alias: { 
+    '@components': 'components', 
+    '@services': 'services' 
+  }
 };
 
 const lessRegex = /\.(less)$/;
@@ -19,7 +22,7 @@ const cssLoaders = [
     test: lessRegex,
     output: cssOutput('global'),
     localIdentName: '[local]',
-    exclude: [ lessAntdRegex, lessModuleRegex ],
+    exclude: [lessAntdRegex, lessModuleRegex],
     sideEffects: true
   },
   {

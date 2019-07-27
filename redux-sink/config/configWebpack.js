@@ -64,7 +64,7 @@ module.exports = function(config) {
 
   const resolvedAlias = Object.keys(config.paths.alias)
     .map(key => ({
-      key: [key],
+      key: key,
       path: resolveSource(config.paths.alias[key])
     }))
     .reduce((a, c) => ((a[c.key] = c.path), a), {});

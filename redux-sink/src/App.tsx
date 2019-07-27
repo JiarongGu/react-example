@@ -1,16 +1,21 @@
+import { History } from 'history';
 import * as React from 'react';
+import { Route, Router } from 'react-router';
+import { useSink } from 'redux-sink';
+import { RouterSink } from './services/router';
 
-export class App extends React.Component {
-  public render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+export interface AppProps {
+  history: History;
 }
+
+export const App: React.FunctionComponent<AppProps> = ({ history }) => {
+  const router = useSink(RouterSink);
+
+  return (
+    <Router history={history}>
+      {router.routes.map((route, index) => (
+        <Route key={index} {...route} />
+      ))}
+    </Router>
+  );
+};

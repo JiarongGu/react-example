@@ -18,6 +18,12 @@
     "strictNullChecks": true,
     "experimentalDecorators": true,
     "suppressImplicitAnyIndexErrors": true,
+    "paths": {
+      "@components": ["src/components"],
+      "@components*": ["src/components*"],
+      "@services": ["src/services"],
+      "@services*": ["src/services*"]
+    },
   },
   "exclude": ["dist", "build", "node_modules", "scripts"]
 }
