@@ -93,12 +93,13 @@ module.exports = function(config) {
           exclude: /node_modules/
         },
         {
-          test: /\.(png|jpg|gif)$/i,
+          test: /\.(png|jpg|gif|svg)$/i,
           use: [
             {
               loader: "url-loader",
               options: {
-                limit: false
+                limit: false,
+                name: "assets/[hash].[ext]"
               }
             }
           ]

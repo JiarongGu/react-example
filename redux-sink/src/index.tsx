@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { Router } from 'react-router';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { SinkFactory } from 'redux-sink';
 
@@ -14,7 +15,9 @@ const history = createNavigationHistory();
 
 ReactDOM.render(
   <Provider store={store}>
-    <App history={history} />
+    <Router history={history}>
+      <App />
+    </Router>
   </Provider>,
   document.getElementById('root')
 );

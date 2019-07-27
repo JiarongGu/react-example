@@ -4,6 +4,14 @@
     "@babel/preset-react"
   ],
   "plugins": [
-    "lodash"
+    "lodash",
+    [
+      "import",
+      {
+        "libraryName": "antd",
+        "libraryDirectory": "es",
+        "style": true
+      }
+    ],
   ]
 }

@@ -1,9 +1,9 @@
 import { RouteProps } from 'react-router';
 
-export class RouteModel {
-  constructor(
-    public name: string,
-    public props: RouteProps,
-    public link?: string
-  ){}
+export interface RouteModel {
+  name: string;
+  props: RouteProps;
+  link?: string;
+  icon?: string;
+  routes?: Array<RouteModel>;
 }

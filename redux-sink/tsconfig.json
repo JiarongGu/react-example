@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "outDir": "build",
     "module": "esnext",
     "target": "es5",
@@ -19,10 +19,12 @@
     "experimentalDecorators": true,
     "suppressImplicitAnyIndexErrors": true,
     "paths": {
-      "@components": ["src/components"],
-      "@components*": ["src/components*"],
-      "@services": ["src/services"],
-      "@services*": ["src/services*"]
+      "@components": ["components"],
+      "@components*": ["components*"],
+      "@services": ["services"],
+      "@services*": ["services*"],
+      "@asserts": ["asserts"],
+      "@asserts*": ["asserts*"]
     },
   },
   "exclude": ["dist", "build", "node_modules", "scripts"]

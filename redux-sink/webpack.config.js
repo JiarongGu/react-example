@@ -8,7 +8,8 @@ const paths = {
   appEntry: './index.tsx',
   alias: { 
     '@components': 'components', 
-    '@services': 'services' 
+    '@services': 'services',
+    '@asserts': 'asserts'
   }
 };
 
