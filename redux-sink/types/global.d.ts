@@ -18,5 +18,9 @@ declare module "*.svg"
 declare module 'global' {
   global {
     interface Window { __PRELOADED_STATE__: any; }
+  
+    interface URLSearchParams {
+      keys: () => IterableIterator<string>;
+    }
   }
 }

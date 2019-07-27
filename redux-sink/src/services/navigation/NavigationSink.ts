@@ -10,6 +10,7 @@ interface ActiveRoute {
   keys: Array<string>;
   url: string;
   breadcrumb: Array<string>;
+  queryParams: { [key: string]: string | null };
 }
 
 @sink('navigation', RouterSink)
@@ -24,7 +25,12 @@ export class NavigationSink {
   public locationTrigger(location: Location) {
     const activeRoute = this.getActiveRoute(this.router.routes, location);
     if (activeRoute) {
-      this.activeRoute = activeRoute;
+      const searchParams = new URLSearchParams(location.search);
+      const queryParams: { [key: string]: string | null } = {};
+      for(const key of searchParams.keys()) {
+        queryParams[key] = searchParams.get(key);
+      }
+      this.activeRoute = { ...activeRoute, queryParams };
     } else if (location.pathname !== (this.location && this.location.pathname)) {
       this.history.replace('/');
     }
@@ -50,7 +56,7 @@ export class NavigationSink {
             url = subActiveRoute.url;
           }
         }
-        return { keys, url, params, breadcrumb };
+        return { keys, url, params, breadcrumb, queryParams: {} };
       }
     }
     return undefined;
