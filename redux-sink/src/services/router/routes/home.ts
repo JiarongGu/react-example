@@ -3,6 +3,7 @@ import { RouteModel } from '../RouteModel';
 
 export default {
   name: 'Home',
+  key: 'home',
   props: { 
     path: '/', 
     exact: true, 

@@ -6,6 +6,7 @@ const paths = {
   appBuild: path.resolve(__dirname, './build'),
   appPublic: path.resolve(__dirname, './public'),
   appEntry: './index.tsx',
+  publicPath: '/',
   alias: { 
     '@components': 'components', 
     '@services': 'services',
@@ -40,6 +41,14 @@ const cssLoaders = [
   }
 ];
 
+// webpack-dev-server
+const devServer = {
+  hot: true,
+  contentBase: paths.appBuild,
+  publicPath: paths.publicPath,
+  historyApiFallback: true,
+};
+
 module.exports = function() {
-  return configWebpack({ paths, cssLoaders });
+  return configWebpack({ paths, cssLoaders, devServer });
 };

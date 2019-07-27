@@ -36,6 +36,7 @@ const resolveLessRules = require("./resolveLessRules");
  * @type {object}
  * @property {cssLoader[]} cssLoaders
  * @property {paths} paths
+ * @property {devServer} devServer
  */
 
 /**
@@ -45,9 +46,10 @@ const resolveLessRules = require("./resolveLessRules");
 module.exports = function(config) {
   let cssExtracts = [];
   let cssExtractPlugins = [];
+  const { cssLoaders, paths, devServer } = config;
 
-  if (config.cssLoaders && config.cssLoaders.length > 0) {
-    const cssLoaders = config.cssLoaders.map(e => ({
+  if (cssLoaders && cssLoaders.length > 0) {
+    const cssLoaderModels = cssLoaders.map(e => ({
       test: e.test,
       localIdentName: e.localIdentName,
       exclude: e.exclude,
@@ -56,27 +58,28 @@ module.exports = function(config) {
       otherLoaders: e.otherLoaders,
       extractPlugin: new ExtractTextPlugin({ filename: e.output })
     }));
-    cssExtracts = cssLoaders.map(e => resolveLessRules(e));
-    cssExtractPlugins = cssLoaders.map(e => e.extractPlugin);
+
+    cssExtracts = cssLoaderModels.map(e => resolveLessRules(e));
+    cssExtractPlugins = cssLoaderModels.map(e => e.extractPlugin);
   }
 
-  const resolveSource = (...args) => path.resolve(config.paths.appSrc, ...args);
+  const resolveSource = (...args) => path.resolve(paths.appSrc, ...args);
 
-  const resolvedAlias = Object.keys(config.paths.alias)
+  const resolvedAlias = Object.keys(paths.alias)
     .map(key => ({
       key: key,
-      path: resolveSource(config.paths.alias[key])
+      path: resolveSource(paths.alias[key])
     }))
     .reduce((a, c) => ((a[c.key] = c.path), a), {});
 
   return {
-    context: config.paths.appSrc,
+    context: paths.appSrc,
     entry: {
-      app: config.paths.appEntry
+      app: paths.appEntry
     },
     output: {
-      path: config.paths.appBuild,
-      publicPath: config.paths.publicPath,
+      path: paths.appBuild,
+      publicPath: paths.publicPath,
       filename: "static/js/[name].[hash:8].js",
       chunkFilename: "static/js/[name].[hash:8].chunk.js"
     },
@@ -85,6 +88,7 @@ module.exports = function(config) {
       extensions: [".js", "jsx", ".json", ".ts", ".tsx"],
       alias: resolvedAlias
     },
+    devServer,
     module: {
       rules: [
         {
@@ -116,11 +120,11 @@ module.exports = function(config) {
       ...cssExtractPlugins,
       new webpack.HotModuleReplacementPlugin(),
       new HtmlWebpackPlugin({
-        template: path.resolve(config.paths.appPublic, "index.html"),
+        template: path.resolve(paths.appPublic, "index.html"),
         minify: false
       }),
       new CopyWebpackPlugin(
-        [{ from: config.paths.appPublic, to: config.paths.appBuild }],
+        [{ from: paths.appPublic, to: paths.appBuild }],
         { ignore: ["index.html"] }
       )
     ]
