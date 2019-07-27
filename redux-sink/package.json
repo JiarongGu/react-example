@@ -1,0 +1,59 @@
+{
+  "name": "redux-sink-example",
+  "version": "1.0.0",
+  "description": "examples for redux-sink with react",
+  "scripts": {
+    "start": "webpack-dev-server --env dev --progress --color --open",
+    "build": "webpack --mode production -p --progress",
+    "test": "react-scripts-ts test --env=jsdom"
+  },
+  "keywords": [
+    "react",
+    "react-redux",
+    "redux",
+    "redux-sink"
+  ],
+  "author": "Jiarong Gu",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "@types/classnames": "^2.2.9",
+    "@types/history": "^4.7.2",
+    "@types/lodash": "^4.14.136",
+    "@types/node": "^12.6.8",
+    "@types/react": "^16.8.23",
+    "@types/react-dom": "^16.8.5",
+    "@types/react-router": "^5.0.3",
+    "autoprefixer": "^9.6.1",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-lodash": "^3.3.4",
+    "copy-webpack-plugin": "^5.0.4",
+    "css-loader": "^2.1.0",
+    "css-type-loader": "^1.1.2",
+    "cssnano": "^4.1.10",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.8.0",
+    "react-script": "^2.0.5",
+    "ts-loader": "^6.0.4",
+    "tslib": "^1.10.0",
+    "tslint": "^5.18.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-react": "^4.0.0",
+    "typescript": "^3.5.3",
+    "webpack": "^4.38.0",
+    "webpack-cleanup-plugin": "^0.5.1",
+    "webpack-cli": "^3.3.6",
+    "webpack-dev-server": "^3.7.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.15",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-router": "^5.0.1",
+    "redux-sink": "^0.5.3"
+  }
+}
