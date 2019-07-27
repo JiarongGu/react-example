@@ -1,4 +1,6 @@
-import { effect, sink, state } from 'redux-sink';
+import { effect, sink, state, trigger } from 'redux-sink';
+
+import { ActiveRoute } from '@services/navigation';
 
 @sink('counter')
 export class CounterSink {
@@ -20,6 +22,14 @@ export class CounterSink {
     if (value) {
       this.base = value;
     } else {
+      this.base = 1;
+    }
+  }
+
+  @trigger('navigation/activeRoute')
+  public triggerActiveRoute(activeRoute: ActiveRoute) {
+    if(activeRoute.keys.some(key => key === 'counter')) {
+      this.value = 0;
       this.base = 1;
     }
   }

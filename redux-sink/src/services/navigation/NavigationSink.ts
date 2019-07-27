@@ -5,7 +5,7 @@ import { sink, SinkFactory, state, trigger } from 'redux-sink';
 import { RouterSink } from '@services/router';
 import { RouteModel } from '@services/router/RouteModel';
 
-interface ActiveRoute {
+export interface ActiveRoute {
   params: { [key: string]: any };
   keys: Array<string>;
   url: string;
