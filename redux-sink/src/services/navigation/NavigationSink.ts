@@ -32,21 +32,22 @@ export class NavigationSink {
 
   private getActiveRoute(routeModels: Array<RouteModel>, location: Location): ActiveRoute | undefined {
     for (const route of routeModels) {
-      const matches = matchPath(location.pathname, route.props);
+      const props = Object.assign({ }, route.props, { path: route.link });
+      const matches = matchPath(location.pathname, props);
       if (matches) {
         const keys = [route.key];
         const breadcrumb = [route.name];
 
         let params = matches.params;
         let url = matches.url;
-        
+
         if (route.routes) {
           const subActiveRoute = this.getActiveRoute(route.routes, location);
           if (subActiveRoute) {
             keys.push(...subActiveRoute.keys);
             breadcrumb.push(...subActiveRoute.breadcrumb);
             params = Object.assign(params, subActiveRoute.params);
-            url = url;
+            url = subActiveRoute.url;
           }
         }
         return { keys, url, params, breadcrumb };

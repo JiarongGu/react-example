@@ -1,14 +1,13 @@
-import { Counter } from '@components/Counter';
+import { Counter } from '@pages/Counter';
 import { RouteModel } from '../RouteModel';
 
 export default {
   name: 'Counter',
   key: 'counter',
-  props: { 
-    path: '/counter', 
+  link: '/counter',
+  props: {
     exact: true, 
     component: Counter 
   },
-  link: '/counter',
   icon: 'plus-square'
 } as RouteModel

@@ -2,6 +2,9 @@
 
 interface CssExports {
   'content': string;
+  'header': string;
+  'headerMenu': string;
+  'header__menu': string;
   'layout': string;
   'logo': string;
   'logoImg': string;

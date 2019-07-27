@@ -21,6 +21,8 @@
     "paths": {
       "@components": ["components"],
       "@components*": ["components*"],
+      "@pages": ["pages"],
+      "@pages*": ["pages*"],
       "@services": ["services"],
       "@services*": ["services*"],
       "@asserts": ["asserts"],

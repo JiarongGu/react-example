@@ -1,14 +1,13 @@
-import { Home } from '@components/Home';
+import { Home } from '@pages/Home';
 import { RouteModel } from '../RouteModel';
 
 export default {
   name: 'Home',
   key: 'home',
-  props: { 
-    path: '/', 
+  icon: 'home',
+  link: '/',
+  props: {
     exact: true, 
     component: Home 
-  }, 
-  link: '/',
-  icon: 'home'
+  }
 } as RouteModel

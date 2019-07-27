@@ -16,9 +16,9 @@ export const Home = () => {
         {router.routes.map(
           (route) =>
             route.link && (
-              <Link key={route.name} to={route.link}>
-                {route.name}
-              </Link>
+              <li key={route.key}>
+                <Link to={route.link}>{route.name}</Link>
+              </li>
             )
         )}
       </ul>

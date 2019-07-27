@@ -7,7 +7,7 @@ export const Counter = () => {
 
   return (
     <div>
-      <h1>Counter </h1>
+      <h2>Simple Counter</h2>
       <p>Value: {counter.value}</p>
       <button onClick={() => counter.add(1)}>+</button>
       <button onClick={() => counter.add(-1)}>-</button>
