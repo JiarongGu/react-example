@@ -6,11 +6,10 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { SinkFactory } from 'redux-sink';
 
 import { createNavigationHistory } from '@services/navigation';
-import { RouterSink } from '@services/router';
 import { App } from './App';
 
 const store = SinkFactory.createStore({
-  devtoolOptions: { devToolCompose: composeWithDevTools }
+  devToolOptions: { devToolCompose: composeWithDevTools }
 });
 const history = createNavigationHistory();
 
