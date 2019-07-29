@@ -1,4 +1,4 @@
-import { Breadcrumb, Icon, Layout, Menu } from 'antd';
+import { Breadcrumb, Icon, Layout, Menu, PageHeader } from 'antd';
 import * as classNames from 'classnames';
 import * as React from 'react';
 import { Route } from 'react-router';
@@ -12,6 +12,7 @@ import { RouterSink } from '@services/router';
 import logo from '@asserts/logo.svg';
 import * as styles from './App.module.less';
 import './styles/global.less';
+import { BreadcrumbProps } from 'antd/lib/breadcrumb';
 
 export const App: React.FunctionComponent = () => {
   const router = useSink(RouterSink);
@@ -67,13 +68,20 @@ export const App: React.FunctionComponent = () => {
               ))}
           </Menu>
         </Layout.Header>
-        <Layout.Content className={styles.content}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            {navigation.activeRoute.breadcrumb.map((name, index) => (
-              <Breadcrumb.Item key={index}>{name}</Breadcrumb.Item>
-            ))}
-          </Breadcrumb>
-          <RouteContent />
+        <Layout.Content>
+          <PageHeader 
+            title={navigation.activeRoute.name} 
+            breadcrumb={{ 
+              routes: navigation.activeRoute.breadcrumbs,
+            itemRender: (route) => {
+              if (route.path === navigation.activeRoute.path) 
+                return route.breadcrumbName
+              return <Link to={route.path}>{ route.breadcrumbName}</Link>
+            }} as BreadcrumbProps} 
+          />
+          <div className={styles.content}>
+            <RouteContent />
+          </div>
         </Layout.Content>
       </Layout>
     </Layout>

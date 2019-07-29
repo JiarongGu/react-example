@@ -12,9 +12,9 @@ export default {
   },
   routes: [
     { 
-      name: 'Home',
-      key: 'setting.home',
-      link: '/setting/',
+      name: 'Common',
+      key: 'setting.common',
+      link: '/setting',
       props: {
         exact: true,
         component: SettingHome,
