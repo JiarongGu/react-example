@@ -4,7 +4,6 @@ import * as React from 'react';
 import { effect, useSink } from 'redux-sink';
 import { sink, state, trigger } from 'redux-sink';
 
-import { LazySuspense } from '@components/LazySuspense';
 import { ActiveRoute } from '@services/navigation';
 import * as styles from './Counter.module.less';
 

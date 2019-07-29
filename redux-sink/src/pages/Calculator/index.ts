@@ -1,3 +1,8 @@
-import * as React from 'react';
+import Loadable from 'react-loadable';
 
-export const Calculator = React.lazy(() => import('./Calculator'));
+import { LazyLoading } from '@components/LazyLoading';
+
+export const Calculator = Loadable({
+  loader: () => import('./Calculator'),
+  loading: LazyLoading,
+});

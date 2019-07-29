@@ -1,3 +1,8 @@
-import * as React from 'react';
+import Loadable from 'react-loadable';
 
-export const Counter = React.lazy(() => import('./Counter'));
+import { LazyLoading } from '@components/LazyLoading';
+
+export const Counter = Loadable({
+  loader: () => import('./Counter'),
+  loading: LazyLoading,
+});
