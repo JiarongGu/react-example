@@ -10,7 +10,7 @@ const paths = {
   alias: { 
     '@components': 'components', 
     '@services': 'services',
-    '@asserts': 'asserts',
+    '@assets': 'assets',
     '@pages': 'pages'
   }
 };

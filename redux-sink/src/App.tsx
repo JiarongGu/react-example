@@ -1,7 +1,6 @@
-import { Breadcrumb, Icon, Layout, Menu, PageHeader } from 'antd';
+import { Icon, Layout, Menu, PageHeader } from 'antd';
 import * as classNames from 'classnames';
 import * as React from 'react';
-import { Route } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useSink } from 'redux-sink';
 
@@ -9,10 +8,10 @@ import { RouteContent } from '@components/RouteContent';
 import { NavigationSink } from '@services/navigation';
 import { RouterSink } from '@services/router';
 
-import logo from '@asserts/logo.svg';
+import logo from '@assets/logo.svg';
+import { BreadcrumbProps } from 'antd/lib/breadcrumb';
 import * as styles from './App.module.less';
 import './styles/global.less';
-import { BreadcrumbProps } from 'antd/lib/breadcrumb';
 
 export const App: React.FunctionComponent = () => {
   const router = useSink(RouterSink);

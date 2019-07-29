@@ -25,8 +25,8 @@
       "@pages*": ["pages*"],
       "@services": ["services"],
       "@services*": ["services*"],
-      "@asserts": ["asserts"],
-      "@asserts*": ["asserts*"]
+      "@assets": ["assets"],
+      "@assets*": ["assets*"]
     },
   },
   "exclude": ["dist", "build", "node_modules", "scripts"]
