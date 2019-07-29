@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export const SettingHome = () => {
+export const SettingCommon = () => {
   return (
     <div>
       <h3>Setting Home</h3>

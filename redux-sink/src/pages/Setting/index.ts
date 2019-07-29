@@ -1,3 +1,3 @@
 export * from './Setting';
 export * from './SettingForm';
-export * from './SettingHome';
+export * from './SettingCommon';

@@ -112,7 +112,6 @@ module.exports = function(config) {
       ]
     },
     plugins: [
-      new webpack.WatchIgnorePlugin([/css\.d\.ts$/]),
       new webpack.NamedModulesPlugin(),
       new webpack.NoEmitOnErrorsPlugin(),
       new MiniCssExtractPlugin(),

@@ -1,4 +1,4 @@
-import { Setting, SettingForm, SettingHome } from '@pages/Setting';
+import { Setting, SettingCommon, SettingForm } from '@pages/Setting';
 import { RouteModel } from '../RouteModel';
 
 export default {
@@ -17,7 +17,7 @@ export default {
       link: '/setting',
       props: {
         exact: true,
-        component: SettingHome,
+        component: SettingCommon,
       } 
     },
     { 
