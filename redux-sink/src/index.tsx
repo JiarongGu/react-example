@@ -5,7 +5,7 @@ import { Router } from 'react-router';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { SinkFactory } from 'redux-sink';
 
-import { createNavigationHistory } from '@services/navigation';
+import { createNavigationHistory } from '@services/navigation/NavigationSink';
 import { App } from './App';
 
 const store = SinkFactory.createStore({

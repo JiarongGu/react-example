@@ -1,3 +1,1 @@
-export * from './Setting';
-export * from './SettingForm';
-export * from './SettingCommon';
+export { default as Setting } from './Setting'

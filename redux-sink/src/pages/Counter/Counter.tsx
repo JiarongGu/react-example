@@ -4,7 +4,7 @@ import * as React from 'react';
 import { effect, useSink } from 'redux-sink';
 import { sink, state, trigger } from 'redux-sink';
 
-import { ActiveRoute } from '@services/navigation';
+import { ActiveRoute } from '@services/navigation/NavigationSink';
 import * as styles from './Counter.module.less';
 
 @sink('counter')

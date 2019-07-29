@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { useSink } from 'redux-sink';
 
-import { RouterSink } from '@services/router';
+import { RouterSink } from '@services/router/RouterSink';
 import * as styles from './Home.module.less';
 
 export const Home = () => {

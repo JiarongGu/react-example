@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Route } from 'react-router';
 import { useSink } from 'redux-sink';
 
-import { RouterSink } from '@services/router';
+import { RouterSink } from '@services/router/RouterSink';
 
 export interface RouteContentProps {
   routeKey?: string;

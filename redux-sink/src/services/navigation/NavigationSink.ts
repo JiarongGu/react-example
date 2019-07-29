@@ -2,8 +2,9 @@ import { createBrowserHistory, History, Location } from 'history';
 import { matchPath } from 'react-router';
 import { sink, SinkFactory, state, trigger } from 'redux-sink';
 
-import { RouterSink } from '@services/router';
 import { RouteModel } from '@services/router/RouteModel';
+import { RouterSink } from '@services/router/RouterSink';
+
 interface Breadcrumb {
   path?: string;
   breadcrumbName: string;
@@ -26,39 +27,66 @@ export class NavigationSink {
   @state public location: Location;
   @state public activeRoute: ActiveRoute;
 
-  constructor(private router: RouterSink) { }
+  private router: RouterSink;
+
+  constructor() {
+    this.router = SinkFactory.sink(RouterSink);
+  }
 
   @trigger('navigation/location')
   public locationTrigger(location: Location) {
     const activeRoute = this.getActiveRoute(this.router.routes, location);
+
     if (activeRoute) {
-      const searchParams = new URLSearchParams(location.search);
-      const queryParams: { [key: string]: string | null } = {};
-      for(const key of searchParams.keys()) {
-        queryParams[key] = searchParams.get(key);
-      }
-      let breadcrumbs = activeRoute.breadcrumbs;
-      if (this.router.root && breadcrumbs[0].path !== '/') {
-        breadcrumbs = [ 
-          { path: this.router.root.link, breadcrumbName: this.router.root.name }, 
-          ...breadcrumbs
-        ];
-      }
-      this.activeRoute = { ...activeRoute, breadcrumbs, queryParams };
+      this.activeRoute = activeRoute;
     } else if (location.pathname !== (this.location && this.location.pathname)) {
       this.history.replace('/');
     }
   }
 
-  private getActiveRoute(routeModels: Array<RouteModel>, location: Location): BasicActiveRoute | undefined {
+  @trigger('router/routes')
+  public routesTrigger() {
+    const activeRoute = this.getActiveRoute(this.router.routes, this.location);
+    if (activeRoute) {
+      this.activeRoute = activeRoute;
+    }
+  }
+
+  private getActiveRoute(routeModels: Array<RouteModel>, location: Location) {
+    if (!location) 
+      return undefined;
+
+    const activeRoute = this.getBasicActiveRoute(routeModels, location);
+    if (activeRoute) {
+      const searchParams = new URLSearchParams(location.search);
+      const queryParams: { [key: string]: string | null } = {};
+      for (const key of searchParams.keys()) {
+        queryParams[key] = searchParams.get(key);
+      }
+      let breadcrumbs = activeRoute.breadcrumbs;
+      if (this.router.root && breadcrumbs[0].path !== '/') {
+        breadcrumbs = [
+          { 
+            path: this.router.root.link, 
+            breadcrumbName: this.router.root.name 
+          },
+          ...breadcrumbs
+        ];
+      }
+      return { ...activeRoute, breadcrumbs, queryParams };
+    }
+    return undefined;
+  }
+
+  private getBasicActiveRoute(routeModels: Array<RouteModel>, location: Location): BasicActiveRoute | undefined {
     for (const route of routeModels) {
-      const props = Object.assign({ }, route.props, { path: route.link });
+      const props = Object.assign({}, route.props, { path: route.link });
       const matches = matchPath(location.pathname, props);
       if (matches) {
         const keys = [route.key];
-        const breadcrumbs: Array<Breadcrumb> = [{ 
-          path: route.link, 
-          breadcrumbName: route.name 
+        const breadcrumbs: Array<Breadcrumb> = [{
+          path: route.link,
+          breadcrumbName: route.name
         }];
 
         let params = matches.params;
@@ -66,7 +94,7 @@ export class NavigationSink {
         let name = route.name;
 
         if (route.routes) {
-          const subActiveRoute = this.getActiveRoute(route.routes, location);
+          const subActiveRoute = this.getBasicActiveRoute(route.routes, location);
           if (subActiveRoute) {
             keys.push(...subActiveRoute.keys);
             breadcrumbs.push(...subActiveRoute.breadcrumbs);

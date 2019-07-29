@@ -1,4 +1,4 @@
-import { sink, state, trigger } from 'redux-sink';
+import { effect, sink, state, trigger } from 'redux-sink';
 
 import { RouteModel } from './RouteModel';
 import { routes } from './routes';
@@ -8,6 +8,12 @@ export class RouterSink {
   @state public routes: Array<RouteModel> = routes;
   @state public routeMap: { [key: string]: RouteModel } = this.getRouteMap(routes);
   @state public root?: RouteModel = this.getRoot(routes);
+
+  @effect
+  public pushRoute(key: string, subRoutes: Array<RouteModel>) {
+    this.routeMap[key].routes = subRoutes;
+    this.routes = [...this.routes];
+  }
 
   @trigger('router/routes')
   public routesTrigger(models: Array<RouteModel>) {

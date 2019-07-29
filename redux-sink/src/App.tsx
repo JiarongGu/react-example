@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import { useSink } from 'redux-sink';
 
 import { RouteContent } from '@components/RouteContent';
-import { NavigationSink } from '@services/navigation';
-import { RouterSink } from '@services/router';
+import { NavigationSink } from '@services/navigation/NavigationSink';
+import { RouterSink } from '@services/router/RouterSink';
 
 import logo from '@assets/logo.svg';
 import { BreadcrumbProps } from 'antd/lib/breadcrumb';
