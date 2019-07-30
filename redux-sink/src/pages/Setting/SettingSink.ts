@@ -16,6 +16,7 @@ export class SettingSink extends DynamicRouter {
       props: {
         exact: true,
         component: SettingCommon,
+        path: ['/setting', '/setting/common']
       }
     },
     {
