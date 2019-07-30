@@ -1,5 +1,5 @@
 import { Counter } from '@pages/Counter';
-import { RouteModel } from '../RouteModel';
+import { RouteModel } from '../models/RouteModel';
 
 export default {
   name: 'Counter',

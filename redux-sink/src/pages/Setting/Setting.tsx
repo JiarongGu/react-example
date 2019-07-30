@@ -6,10 +6,10 @@ import { SettingSink } from './SettingSink';
 
 export default () => {
   const setting = useSink(SettingSink);
-
+  console.log(setting);
   return (
     <div>
-      <RouteContent routeKey={setting.routeKey} />
+      <RouteContent routeKey={setting.key} />
     </div>
   )
 }

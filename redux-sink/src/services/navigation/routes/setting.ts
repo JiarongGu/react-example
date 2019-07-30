@@ -1,5 +1,5 @@
 import { Setting } from '@pages/Setting';
-import { RouteModel } from '../RouteModel';
+import { RouteModel } from '../models/RouteModel';
 
 export default {
   key: 'setting',

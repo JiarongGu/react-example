@@ -1,5 +1,5 @@
 import { Calculator } from '@pages/Calculator';
-import { RouteModel } from '../RouteModel';
+import { RouteModel } from '../models/RouteModel';
 
 export default {
   name: 'Calculator',

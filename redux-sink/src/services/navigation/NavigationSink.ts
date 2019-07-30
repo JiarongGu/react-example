@@ -1,41 +1,31 @@
+
 import { createBrowserHistory, History, Location } from 'history';
 import { matchPath } from 'react-router';
-import { sink, SinkFactory, state, trigger } from 'redux-sink';
+import { effect, sink, SinkFactory, state, trigger } from 'redux-sink';
 
-import { RouteModel } from '@services/router/RouteModel';
-import { RouterSink } from '@services/router/RouterSink';
+import { RouteModel } from '@services/navigation/models/RouteModel';
+import { routes } from '@services/navigation/routes';
+import { ActiveRoute, BasicActiveRoute } from './models/ActiveRoute';
+import { BreadcrumbModel } from './models/BreadcrumbModel';
 
-interface Breadcrumb {
-  path?: string;
-  breadcrumbName: string;
-}
-interface BasicActiveRoute {
-  params: { [key: string]: any };
-  keys: Array<string>;
-  path: string;
-  breadcrumbs: Array<Breadcrumb>;
-  name: string;
-}
-
-export interface ActiveRoute extends BasicActiveRoute {
-  queryParams: { [key: string]: string | null };
-}
-
-@sink('navigation', RouterSink)
+@sink('navigation')
 export class NavigationSink {
   @state public history: History;
   @state public location: Location;
   @state public activeRoute: ActiveRoute;
+  @state public routes: Array<RouteModel> = routes;
+  @state public routeMap: { [key: string]: RouteModel } = this.getRouteMap(routes);
+  @state public root?: RouteModel = this.getRoot(routes);
 
-  private router: RouterSink;
-
-  constructor() {
-    this.router = SinkFactory.sink(RouterSink);
+  @effect
+  public pushRoute(key: string, subRoutes: Array<RouteModel>) {
+    this.routeMap[key].routes = subRoutes;
+    this.routes = [...this.routes];
   }
 
   @trigger('navigation/location')
   public locationTrigger(location: Location) {
-    const activeRoute = this.getActiveRoute(this.router.routes, location);
+    const activeRoute = this.getActiveRoute(this.routes, location);
 
     if (activeRoute) {
       this.activeRoute = activeRoute;
@@ -44,12 +34,29 @@ export class NavigationSink {
     }
   }
 
-  @trigger('router/routes')
-  public routesTrigger() {
-    const activeRoute = this.getActiveRoute(this.router.routes, this.location);
+  @trigger('navigation/routes')
+  public routesTrigger(models: Array<RouteModel>) {
+    this.routeMap = this.getRouteMap(models);
+    this.root = this.getRoot(models);
+
+    const activeRoute = this.getActiveRoute(models, this.location);
     if (activeRoute) {
       this.activeRoute = activeRoute;
     }
+  }
+
+  private getRoot(models: Array<RouteModel>) {
+    return models.find(x => x.link || x.props.path === '/');
+  }
+
+  private getRouteMap(models: Array<RouteModel>) {
+    return models.reduce((map, model) => {
+      map[model.key] = model;
+      if (model.routes) {
+        map = Object.assign(map, this.getRouteMap(model.routes));
+      }
+      return map;
+    }, {});
   }
 
   private getActiveRoute(routeModels: Array<RouteModel>, location: Location) {
@@ -64,11 +71,11 @@ export class NavigationSink {
         queryParams[key] = searchParams.get(key);
       }
       let breadcrumbs = activeRoute.breadcrumbs;
-      if (this.router.root && breadcrumbs[0].path !== '/') {
+      if (this.root && breadcrumbs[0].path !== '/') {
         breadcrumbs = [
           { 
-            path: this.router.root.link, 
-            breadcrumbName: this.router.root.name 
+            path: this.root.link, 
+            breadcrumbName: this.root.name 
           },
           ...breadcrumbs
         ];
@@ -84,7 +91,7 @@ export class NavigationSink {
       const matches = matchPath(location.pathname, props);
       if (matches) {
         const keys = [route.key];
-        const breadcrumbs: Array<Breadcrumb> = [{
+        const breadcrumbs: Array<BreadcrumbModel> = [{
           path: route.link,
           breadcrumbName: route.name
         }];
@@ -112,7 +119,7 @@ export class NavigationSink {
 
 export const createNavigationHistory = () => {
   const history = createBrowserHistory();
-  const navigation = SinkFactory.sink(NavigationSink);
+  const navigation = SinkFactory.getSink(NavigationSink);
 
   history.listen((location) => navigation.location = location);
   navigation.history = history;

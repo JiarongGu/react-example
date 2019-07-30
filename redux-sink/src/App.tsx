@@ -6,7 +6,6 @@ import { useSink } from 'redux-sink';
 
 import { RouteContent } from '@components/RouteContent';
 import { NavigationSink } from '@services/navigation/NavigationSink';
-import { RouterSink } from '@services/router/RouterSink';
 
 import logo from '@assets/logo.svg';
 import { BreadcrumbProps } from 'antd/lib/breadcrumb';
@@ -14,11 +13,10 @@ import * as styles from './App.module.less';
 import './styles/global.less';
 
 export const App: React.FunctionComponent = () => {
-  const router = useSink(RouterSink);
   const navigation = useSink(NavigationSink);
   const routeKeys = navigation.activeRoute.keys;
   const rootRouteKey = routeKeys[0];
-  const subRoute = rootRouteKey && router.routeMap[rootRouteKey];
+  const subRoute = rootRouteKey && navigation.routeMap[rootRouteKey];
 
   const [collapsed, setCollapsed] = React.useState(false);
 
@@ -37,7 +35,7 @@ export const App: React.FunctionComponent = () => {
           {!collapsed && <h1 className={styles.logoText}>Redux Sink</h1>}
         </div>
         <Menu theme={'dark'} mode={'inline'} selectedKeys={routeKeys}>
-          {router.routes.map((route) => (
+          {navigation.routes.map((route) => (
             <Menu.Item key={route.key} title={route.name}>
               {route.link && (
                 <Link to={route.link}>
@@ -79,7 +77,7 @@ export const App: React.FunctionComponent = () => {
             }} as BreadcrumbProps} 
           />
           <div className={styles.content}>
-            <RouteContent />
+            <RouteContent root={true} />
           </div>
         </Layout.Content>
       </Layout>

@@ -1,4 +1,4 @@
-import { RouteModel } from '../RouteModel';
+import { RouteModel } from '../models/RouteModel';
 import calculator from './calculator';
 import counter from './counter';
 import home from './home';

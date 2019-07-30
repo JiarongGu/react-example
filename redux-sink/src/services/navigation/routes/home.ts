@@ -1,5 +1,5 @@
 import { Home } from '@pages/Home';
-import { RouteModel } from '../RouteModel';
+import { RouteModel } from '../models/RouteModel';
 
 export default {
   name: 'Home',

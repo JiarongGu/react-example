@@ -1,48 +1,35 @@
-import { sink, SinkFactory, state, trigger } from 'redux-sink';
+import { sink, SinkContainer, SinkFactory } from 'redux-sink';
 
-import { ActiveRoute } from '@services/navigation/NavigationSink';
-import { RouteModel } from '@services/router/RouteModel';
-import { RouterSink } from '@services/router/RouterSink';
+import { DynamicRouter } from '@services/dynamic/DynamicRouter';
+import { RouteModel } from '@services/navigation/models/RouteModel';
+import { NavigationSink } from '@services/navigation/NavigationSink';
 import { SettingCommon } from './SettingCommon';
 import { SettingForm } from './SettingForm';
 
-const routes: Array<RouteModel> = [
-  { 
-    name: 'Common',
-    key: 'setting.common',
-    link: '/setting',
-    props: {
-      exact: true,
-      component: SettingCommon,
-    } 
-  },
-  { 
-    name: 'Form',
-    key: 'setting.form',
-    link: '/setting/form',
-    props: {
-      exact: true,
-      component: SettingForm,
-    } 
-  }
-]
-
-@sink('setting')
-export class SettingSink {
-  @state public routeKey = 'setting';
-  @state public loaded = false;
-
-  private router: RouterSink;
-
-  constructor() {
-    this.router = SinkFactory.sink(RouterSink);
-  }
-
-  @trigger('navigation/activeRoute')
-  public locationTrigger(activeRoute: ActiveRoute) {
-    if(!this.loaded && activeRoute.keys.some(key => key === this.routeKey)) {
-      this.loaded = true;
-      this.router.pushRoute(this.routeKey, routes);
+@sink('setting', SinkFactory)
+export class SettingSink extends DynamicRouter {
+  protected routes: Array<RouteModel> = [
+    {
+      name: 'Common',
+      key: 'setting.common',
+      link: '/setting',
+      props: {
+        exact: true,
+        component: SettingCommon,
+      }
+    },
+    {
+      name: 'Form',
+      key: 'setting.form',
+      link: '/setting/form',
+      props: {
+        exact: true,
+        component: SettingForm,
+      }
     }
+  ]
+
+  constructor(container: SinkContainer) {
+    super('setting', container.getSink(NavigationSink));
   }
 }
