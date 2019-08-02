@@ -19,7 +19,7 @@ export const App: React.FunctionComponent = () => {
   const subRoute = rootRouteKey && navigation.routeMap[rootRouteKey];
 
   const [collapsed, setCollapsed] = React.useState(false);
-
+  
   return (
     <Layout className={styles.layout}>
       <Layout.Sider

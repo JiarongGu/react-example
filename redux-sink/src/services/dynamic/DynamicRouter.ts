@@ -1,19 +1,24 @@
+
+import { SinkFactory, state, trigger } from 'redux-sink';
+
 import { ActiveRoute } from '@services/navigation/models/ActiveRoute';
 import { RouteModel } from '@services/navigation/models/RouteModel';
 import { NavigationSink } from '@services/navigation/NavigationSink';
-import { state, trigger } from 'redux-sink';
 
 export class DynamicRouter {
   @state public key: string;
   @state public loaded = false;
 
   protected routes: Array<RouteModel> = [];
+  protected navigation: NavigationSink;
 
   constructor(
     key: string,
-    protected navigation: NavigationSink
+    routes: Array<RouteModel>,
   ) {
     this.key = key;
+    this.routes = routes;
+    this.navigation = SinkFactory.getSink(NavigationSink);
   }
 
   @trigger('navigation/activeRoute')

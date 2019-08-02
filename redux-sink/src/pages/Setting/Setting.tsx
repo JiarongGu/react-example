@@ -1,14 +1,21 @@
 import * as React from 'react';
-import { useSink } from 'redux-sink';
+import { sink, useSink } from 'redux-sink';
 
 import { RouteContent } from '@components/RouteContent';
-import { SettingSink } from './SettingSink';
+import { DynamicRouter } from '@services/dynamic/DynamicRouter';
+import { settingRoutes } from './SettingRoutes';
+
+
+@sink('setting-router')
+export class SettingRouterSink extends DynamicRouter {
+  constructor() {
+    super('setting', settingRoutes);
+  }
+}
 
 export default () => {
-  const setting = useSink(SettingSink);
+  const router = useSink(SettingRouterSink);
   return (
-    <div>
-      <RouteContent routeKey={setting.key} />
-    </div>
+    <RouteContent routeKey={router.key} />
   )
 }
