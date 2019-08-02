@@ -9,6 +9,7 @@ export const LazyLoading: React.FunctionComponent<LoadingComponentProps> = (prop
     return (
       <div>
         <h1>Loading Error</h1> 
+        <div>{ props.error }</div>
         <Button onClick={ props.retry }>Retry</Button>
       </div>
     );

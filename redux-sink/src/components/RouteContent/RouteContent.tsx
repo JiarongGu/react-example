@@ -16,7 +16,6 @@ export const RouteContent: React.FunctionComponent<RouteContentProps> = ({ route
     return null;
 
   const routes = root ? navigation.routes : navigation.routeMap[routeKey!].routes;
-  console.log(routes);
   return (
     <>
       {routes &&
