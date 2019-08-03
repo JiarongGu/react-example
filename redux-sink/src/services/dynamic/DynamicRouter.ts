@@ -12,10 +12,7 @@ export class DynamicRouter {
   protected routes: Array<RouteModel> = [];
   protected navigation: NavigationSink;
 
-  constructor(
-    key: string,
-    routes: Array<RouteModel>,
-  ) {
+  constructor(key: string, routes: Array<RouteModel>) {
     this.key = key;
     this.routes = routes;
     this.navigation = SinkFactory.getSink(NavigationSink);
@@ -23,7 +20,7 @@ export class DynamicRouter {
 
   @trigger('navigation/activeRoute')
   public loadRoute(activeRoute: ActiveRoute) {
-    if(!this.loaded && activeRoute.keys.some(key => key === this.key)) {
+    if (!this.loaded && activeRoute.keys.some(key => key === this.key)) {
       this.loaded = true;
       this.navigation.pushRoute(this.key, this.routes);
     }

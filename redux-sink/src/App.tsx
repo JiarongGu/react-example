@@ -14,12 +14,12 @@ import './styles/global.less';
 
 export const App: React.FunctionComponent = () => {
   const navigation = useSink(NavigationSink);
-  const routeKeys = navigation.activeRoute.keys;
-  const rootRouteKey = routeKeys[0];
+  const routeKeys = navigation.activeRoute && navigation.activeRoute.keys;
+  const rootRouteKey = routeKeys && routeKeys[0];
   const subRoute = rootRouteKey && navigation.routeMap[rootRouteKey];
 
   const [collapsed, setCollapsed] = React.useState(false);
-  
+
   return (
     <Layout className={styles.layout}>
       <Layout.Sider
@@ -66,16 +66,23 @@ export const App: React.FunctionComponent = () => {
           </Menu>
         </Layout.Header>
         <Layout.Content>
-          <PageHeader 
-            title={navigation.activeRoute.name} 
-            breadcrumb={{ 
-              routes: navigation.activeRoute.breadcrumbs,
-            itemRender: (route) => {
-              if (route.path === navigation.activeRoute.path) 
-                return route.breadcrumbName
-              return <Link to={route.path}>{ route.breadcrumbName}</Link>
-            }} as BreadcrumbProps} 
-          />
+          {navigation.activeRoute && (
+            <PageHeader
+              title={navigation.activeRoute.name}
+              breadcrumb={
+                {
+                  routes: navigation.activeRoute.breadcrumbs,
+                  itemRender: (route) => {
+                    if (route.path === navigation.activeRoute.path) {
+                      return route.breadcrumbName;
+                    } else {
+                      return <Link to={route.path}>{route.breadcrumbName}</Link>;
+                    }
+                  }
+                } as BreadcrumbProps
+              }
+            />
+          )}
           <div className={styles.content}>
             <RouteContent root={true} />
           </div>
