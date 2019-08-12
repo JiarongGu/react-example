@@ -1,11 +1,11 @@
 {
-  "name": "redux-sink-example",
+  "name": "redux-utils",
   "version": "1.0.0",
-  "description": "examples for redux-sink with react",
+  "description": "collection of redux utils",
   "scripts": {
-    "start": "webpack-dev-server --env dev --progress --color --open",
-    "build": "webpack --mode production -p --progress",
-    "test": "react-scripts-ts test --env=jsdom"
+    "test": "react-scripts-ts test --env=jsdom",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "keywords": [
     "react",
@@ -20,15 +20,17 @@
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
+    "@storybook/addon-actions": "^5.1.10",
+    "@storybook/addon-links": "^5.1.10",
+    "@storybook/addons": "^5.1.10",
+    "@storybook/react": "^5.1.10",
     "@types/classnames": "^2.2.9",
     "@types/history": "^4.7.2",
     "@types/lodash": "^4.14.136",
     "@types/node": "^12.6.8",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.5",
-    "@types/react-loadable": "^5.5.1",
-    "@types/react-router": "^5.0.3",
-    "@types/react-router-dom": "^4.3.4",
+    "@types/storybook__react": "^4.0.2",
     "autoprefixer": "^9.6.1",
     "babel-loader": "^8.0.6",
     "babel-plugin-import": "^1.12.0",
@@ -62,13 +64,9 @@
     "webpack-dev-server": "^3.7.2"
   },
   "dependencies": {
-    "antd": "^3.20.7",
     "lodash": "^4.17.15",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-loadable": "^5.5.0",
-    "react-router": "^5.0.1",
-    "react-router-dom": "^5.0.1",
     "redux-sink": "^0.12.2"
   }
 }
