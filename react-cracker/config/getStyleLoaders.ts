@@ -1,4 +1,4 @@
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import * as MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 export default function({ cssOptions, preProcessor }) {
   const loaders = [
@@ -30,9 +30,9 @@ export default function({ cssOptions, preProcessor }) {
           // Adds PostCSS Normalize as the reset css with default options,
           // so that it honors browserslist config in package.json
           // which in turn let's users customize the target behavior as per their needs.
-          postcssNormalize(),
+          // postcssNormalize(),
         ],
-        sourceMap: isEnvProduction && shouldUseSourceMap,
+        // sourceMap: isEnvProduction && shouldUseSourceMap,
       },
     },
   ].filter(Boolean);
@@ -41,7 +41,7 @@ export default function({ cssOptions, preProcessor }) {
       {
         loader: require.resolve('resolve-url-loader'),
         options: {
-          sourceMap: isEnvProduction && shouldUseSourceMap,
+          // sourceMap: isEnvProduction && shouldUseSourceMap,
         },
       },
       {

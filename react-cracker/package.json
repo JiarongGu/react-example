@@ -2,6 +2,9 @@
   "name": "react-cracker",
   "version": "1.0.0",
   "description": "examples for redux-sink with react",
+  "repository": {
+    "url": "https://github.com/JiarongGu/react-example"
+  },
   "scripts": {
     "start": "env-cmd -e development webpack-dev-server --progress --color --open",
     "build": "env-cmd -e production  webpack --progress",
@@ -27,7 +30,7 @@
     "@types/html-webpack-plugin": "^3.2.1",
     "@types/lodash": "^4.14.136",
     "@types/mini-css-extract-plugin": "^0.8.0",
-    "@types/node": "^12.7.2",
+    "@types/node": "^12.7.8",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.5",
     "@types/react-loadable": "^5.5.1",

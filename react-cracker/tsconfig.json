@@ -1,0 +1,58 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "outDir": "build",
+    "module": "esnext",
+    "target": "es6",
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+    "sourceMap": true,
+    "allowJs": true,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "downlevelIteration": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": false,
+    "noUnusedLocals": false,
+    "importHelpers": true,
+    "strictNullChecks": true,
+    "experimentalDecorators": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "@components": [
+        "components"
+      ],
+      "@components*": [
+        "components*"
+      ],
+      "@pages": [
+        "pages"
+      ],
+      "@pages*": [
+        "pages*"
+      ],
+      "@services": [
+        "services"
+      ],
+      "@services*": [
+        "services*"
+      ],
+      "@assets": [
+        "assets"
+      ],
+      "@assets*": [
+        "assets*"
+      ]
+    },
+  },
+  "exclude": [
+    "dist",
+    "build",
+    "node_modules",
+    "scripts"
+  ]
+}
