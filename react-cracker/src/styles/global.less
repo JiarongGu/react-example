@@ -1,0 +1,26 @@
+@import '_color';
+@import '_flex';
+
+::-webkit-scrollbar {
+  width: 6px;
+  background-color: @scorllbar-background-color;
+  z-index: 999;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: @scorllbar-color;
+  border-radius: 3px;
+
+  &:hover {
+    background-color: @scorllbar-color--hover;
+  }
+}
+
+body {
+  overflow-x: hidden;
+  height: inherit;
+}
+
+.svg-inline--fa {
+  margin-right: 5px;
+}

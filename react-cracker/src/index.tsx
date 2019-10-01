@@ -9,7 +9,6 @@ import { createNavigationHistory } from '@services/navigation/NavigationSink';
 import { App } from './App';
 
 const store = SinkFactory.createStore({
-  useTrigger: true,
   devToolOptions: { devToolCompose: composeWithDevTools }
 });
 const history = createNavigationHistory();

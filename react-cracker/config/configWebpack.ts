@@ -1,13 +1,13 @@
-const webpack = require("webpack");
-const path = require("path");
+import path from 'path';
+import webpack from 'webpack';
 
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const WebpackCleanupPlugin = require("webpack-cleanup-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import WebpackCleanupPlugin from 'webpack-cleanup-plugin';
 
-const resolveLessRules = require("./resolveLessRules");
+import resolveLessRules from './resolveLessRules';
 
 /**
  * @typedef paths
@@ -43,7 +43,7 @@ const resolveLessRules = require("./resolveLessRules");
  * config webpack object
  * @param {config} config
  */
-module.exports = function(config) {
+export default function(config): webpack.Configuration {
   let cssExtracts = [];
   let cssExtractPlugins = [];
   const { cssLoaders, paths, devServer } = config;
@@ -67,7 +67,7 @@ module.exports = function(config) {
 
   const resolvedAlias = Object.keys(paths.alias)
     .map(key => ({
-      key: key,
+      key,
       path: resolveSource(paths.alias[key])
     }))
     .reduce((a, c) => ((a[c.key] = c.path), a), {});
@@ -80,30 +80,35 @@ module.exports = function(config) {
     output: {
       path: paths.appBuild,
       publicPath: paths.publicPath,
-      filename: "static/js/[name].[hash:8].js",
-      chunkFilename: "static/js/[name].[hash:8].chunk.js"
+      filename: 'static/js/[name].[hash:8].js',
+      chunkFilename: 'static/js/[name].[hash:8].chunk.js'
     },
-    target: "web",
+    target: 'web',
     resolve: {
-      extensions: [".js", "jsx", ".json", ".ts", ".tsx"],
+      extensions: ['.js', 'jsx', '.json', '.ts', '.tsx'],
       alias: resolvedAlias
+    },
+    optimization: {
+      concatenateModules: false,
+      noEmitOnErrors: true,
+      namedModules: true
     },
     devServer,
     module: {
       rules: [
         {
           test: /\.(ts|tsx)$/,
-          use: ["babel-loader", "ts-loader"],
+          use: ['babel-loader', 'ts-loader'],
           exclude: /node_modules/
         },
         {
           test: /\.(png|jpg|gif|svg)$/i,
           use: [
             {
-              loader: "url-loader",
+              loader: 'url-loader',
               options: {
                 limit: false,
-                name: "assets/[hash].[ext]"
+                name: 'assets/[hash].[ext]'
               }
             }
           ]
@@ -112,19 +117,17 @@ module.exports = function(config) {
       ]
     },
     plugins: [
-      new webpack.NamedModulesPlugin(),
-      new webpack.NoEmitOnErrorsPlugin(),
       new MiniCssExtractPlugin(),
       new WebpackCleanupPlugin(),
       ...cssExtractPlugins,
       new webpack.HotModuleReplacementPlugin(),
       new HtmlWebpackPlugin({
-        template: path.resolve(paths.appPublic, "index.html"),
+        template: path.resolve(paths.appPublic, 'index.html'),
         minify: false
       }),
       new CopyWebpackPlugin(
         [{ from: paths.appPublic, to: paths.appBuild }],
-        { ignore: ["index.html"] }
+        { ignore: ['index.html'] }
       )
     ]
   };
